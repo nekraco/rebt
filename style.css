@@ -2,4 +2,23 @@
 
 body {
 	background: #444;
+	margin: 0;
+}
+
+.main {
+	width: 100vw;
+	height: 100vh;
+	border: solid 2px red;
+	box-sizing: border-box;
+}
+
+.cSourceField {
+	height: 2vh;
+	background: #333;
+}
+
+.cInitialField {
+	height: 6vh;
+	background: dodgerblue;
+
 }
