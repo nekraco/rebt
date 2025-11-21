@@ -1,37 +1,47 @@
+//localStorage.clear();
+
 let ARRINITIAL = extractFromLS("ini");
 //let ARRSECONDARY = extractFromLS("sec");
 
 let main = document.querySelector(".main");
-
 let textField = createElement(main, "cTextField", "textarea");
-
 let sourceField = createElement(main, "cSourceField", "div");
 
+for (let i = 1; i < ARRINITIAL.length; i++) {
+	workWithField(ARRINITIAL[i]);
+}
+
 sourceField.addEventListener("click", function () {
-	let initialField = createElement(main, "cInitialField", "div");
 
+	workWithField('');
+
+})
+
+function workWithField(valueField) {
+	let field = createElement(main, "cInitialField", "div");
 	let [bc, col] = formatColors();
-	initialField.style.background = bc;
-	initialField.style.color = col;
-
-	initialField.addEventListener("dblclick", function () {
+	field.style.background = bc;
+	field.style.color = col;
+	field.innerHTML = valueField;
+	field.addEventListener("dblclick", function () {
 		switchDisplay(textField, "block");
-
+		textField.value = field.innerHTML;
 		textField.addEventListener("dblclick", bindTextField);
 
 		function bindTextField() {
 			textField.removeEventListener("dblclick", bindTextField);
-			//let text = textField.value;
+
 			saveToLS(ARRINITIAL, textField.value)
 			ARRINITIAL = extractFromLS("ini")
-			initialField.innerHTML = ARRINITIAL[ARRINITIAL.length - 1];
-				textField.value = '';
+			field.innerHTML = ARRINITIAL[ARRINITIAL.length - 1];
+			textField.value = '';
 			switchDisplay(textField, "none");
 
 		}
 	})
 
-})
+}
+
 
 
 
