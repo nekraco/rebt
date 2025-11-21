@@ -1,19 +1,36 @@
-
 let main = document.querySelector(".main");
+
+let textField = createElement(main, "cTextField", "textarea");
 
 let sourceField = createElement(main, "cSourceField", "div");
 
- sourceField.addEventListener("click", function() {
-	 let initialField = createElement(main, "cInitialField", "div");
-	 let [bc, col] = formatColors();
-	 initialField.style.background = bc;
-	 initialField.style.color = col;
+sourceField.addEventListener("click", function () {
+	let initialField = createElement(main, "cInitialField", "div");
 
- })
+	let [bc, col] = formatColors();
+	initialField.style.background = bc;
+	initialField.style.color = col;
+
+	initialField.addEventListener("dblclick", function () {
+		switchDisplay(textField, "block");
+
+		textField.addEventListener("dblclick", bindTextField);
+
+			function bindTextField () {
+				textField.removeEventListener("dblclick", bindTextField);
+				initialField.innerHTML = textField.value;
+					 textField.value = '';
+			switchDisplay(textField, "none");
+			
+		}
+	})
+
+})
 
 
-
-
+function switchDisplay(elem, valueDisplay) {
+	elem.style.display = valueDisplay;
+}
 
 
 function createElement(parent, addClass, type) {
