@@ -1,3 +1,6 @@
+let ARRINITIAL = extractFromLS("ini");
+//let ARRSECONDARY = extractFromLS("sec");
+
 let main = document.querySelector(".main");
 
 let textField = createElement(main, "cTextField", "textarea");
@@ -16,16 +19,39 @@ sourceField.addEventListener("click", function () {
 
 		textField.addEventListener("dblclick", bindTextField);
 
-			function bindTextField () {
-				textField.removeEventListener("dblclick", bindTextField);
-				initialField.innerHTML = textField.value;
-					 textField.value = '';
+		function bindTextField() {
+			textField.removeEventListener("dblclick", bindTextField);
+			//let text = textField.value;
+			saveToLS(ARRINITIAL, textField.value)
+			ARRINITIAL = extractFromLS("ini")
+			initialField.innerHTML = ARRINITIAL[ARRINITIAL.length - 1];
+				textField.value = '';
 			switchDisplay(textField, "none");
-			
+
 		}
 	})
 
 })
+
+
+
+function saveToLS(array, value) {
+	let key = array[0];
+	array.push(value);
+	let jsonArray = JSON.stringify(array);
+	localStorage.setItem(key, jsonArray);
+}
+
+
+
+function extractFromLS(key) {
+	if (localStorage.getItem(key) === null) {
+		return [key];
+	} else {
+		let jsonArray = localStorage.getItem(key);
+		return JSON.parse(jsonArray);
+	}
+}
 
 
 function switchDisplay(elem, valueDisplay) {
